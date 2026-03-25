@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-
+const mongoDB_url= process.env.mongo_DB_url
 const dbconnect=async()=>{
-    const conn= await mongoose.connect("mongodb+srv://atlasData:atlasData@cluster0.i8pgzdj.mongodb.net/ToDo")
+    
+    const conn= await mongoose.connect(`${mongoDB_url}`)
     if(conn){
         console.log("Database is connected successfully...");
         
