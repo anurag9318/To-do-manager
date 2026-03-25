@@ -42,7 +42,7 @@ const Login = () => {
         } catch (error) {
             Swal.fire({
                 title: "failed",
-                text: "internal server error",
+                text: "internal server error 1",
                 icon: "error"
             })
         }
