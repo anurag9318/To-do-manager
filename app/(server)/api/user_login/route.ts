@@ -3,9 +3,9 @@ import dbconnect from "../../lib/dbconnect";
 import { UserModel } from "../../model/model";
 
 export const POST= async(request:Request)=>{
-    await dbconnect()
     
     try {
+        await dbconnect()
         const {email, password}= await request.json()
         const isExist= await UserModel.findOne({email})
         if(!isExist){
@@ -36,7 +36,7 @@ export const POST= async(request:Request)=>{
             })
         }
     } catch (error) {
-         return NextResponse.json({
+        return NextResponse.json({
                 success:false,
                 message:"Internal server error 1",
                 code:500,
