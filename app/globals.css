@@ -1,0 +1,32 @@
+
+::placeholder{
+  color:white !important;
+}
+input,select{
+  background: transparent !important;
+  color:white !important
+}
+.forms:hover{
+  background: #091f2a;
+  transition:0.5s !important;
+}
+select{
+  color:white !important;
+  background-color: transparent !important;
+}
+option{
+  color:black !important;
+
+}
+.link:hover{
+  color:#091f2a !important;
+}
+body{
+  background-color: #212529 !important;
+}
+.profile-img{
+  border-radius: 50% !important;
+  border:3px solid white !important;
+}
+
+
