@@ -4,6 +4,7 @@ import { UserModel } from "../../model/model";
 
 export const POST= async(request:Request)=>{
     await dbconnect()
+    
     try {
         const {email, password}= await request.json()
         const isExist= await UserModel.findOne({email})
@@ -37,7 +38,7 @@ export const POST= async(request:Request)=>{
     } catch (error) {
          return NextResponse.json({
                 success:false,
-                message:"Internal server error",
+                message:"Internal server error 1",
                 code:500,
                 error:error,
             })
