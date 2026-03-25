@@ -29,7 +29,7 @@ const profile = () => {
             <img src={`${user?.profile }`}  width={250} height={250} className=' profile-img'></img>
           </div>
         </div>
-        <div className="col-sm-8 mt-5 fs-3">
+        <div className="col-sm-8 mt-5 fs-4">
           <div className="row mb-2">
             <div className="col-sm-2">UserID</div>
             <div className="col-sm-3">{user?._id}</div>
