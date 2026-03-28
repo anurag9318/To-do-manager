@@ -7,32 +7,34 @@ import { cookies } from "next/headers";
 
 // API for the user signup---
 export const POST = async (request: Request) => {
-    await dbconnect()
-    // const { name, age, email, password } = await request.json()
-    const data= await request.formData()
-    const name= data.get("name")
-    const age= data.get("age")
-    const email= data.get("email")
-    const password= data.get("password")
-    const profile= data.get("profile")  as File
 
-    if(!profile){
-        return NextResponse.json({error: 'No file upload'})
-    }
-    console.log(profile)
-     const bytes= await profile.arrayBuffer()
-     const buffer= Buffer.from(bytes)
-    
-    // unique filename
-    const filename= Date.now() + '-' + profile.name
-    const filepath= path.join(process.cwd(), 'public/uploads',filename)
-    fs.writeFileSync(filepath,buffer)
 
-    const imageurl= `/uploads/${filename}`
     try {
-        const isExist = await UserModel.find({ email:email })
+        await dbconnect()
+        // const { name, age, email, password } = await request.json()
+        const data = await request.formData()
+        const name = data.get("name")
+        const age = data.get("age")
+        const email = data.get("email")
+        const password = data.get("password")
+        const profile = data.get("profile") as File
+
+        if (!profile) {
+            return NextResponse.json({ error: 'No file upload' })
+        }
+        console.log(profile)
+        const bytes = await profile.arrayBuffer()
+        const buffer = Buffer.from(bytes)
+
+        // unique filename
+        const filename = Date.now() + '-' + profile.name
+        const filepath = path.join(process.cwd(), 'public/uploads', filename)
+        fs.writeFileSync(filepath, buffer)
+
+        const imageurl = `/uploads/${filename}`
+        const isExist = await UserModel.find({ email: email })
         console.log(isExist)
-        if(isExist.length>0) {
+        if (isExist.length > 0) {
             return NextResponse.json({
                 success: false,
                 code: 200,
@@ -40,7 +42,7 @@ export const POST = async (request: Request) => {
                 error: true
             })
         }
-        const result = await UserModel.create({ name, age, email, password,profile:imageurl })
+        const result = await UserModel.create({ name, age, email, password, profile: imageurl })
         if (result) {
             return NextResponse.json({
                 success: true,
@@ -60,17 +62,17 @@ export const POST = async (request: Request) => {
     }
 }
 
-export const GET= async(request:Request)=>{
+export const GET = async (request: Request) => {
     await dbconnect()
-    const cookieStore= cookies()
-    const id= (await cookieStore).get("ID")?.value
-    const result= await UserModel.findById(id)
+    const cookieStore = cookies()
+    const id = (await cookieStore).get("ID")?.value
+    const result = await UserModel.findById(id)
     return NextResponse.json({
-        success:true,
-        code:200,
-        message:"fetch successfully",
-        dashboard:result,
-        error:false
+        success: true,
+        code: 200,
+        message: "fetch successfully",
+        dashboard: result,
+        error: false
     })
 }
 
