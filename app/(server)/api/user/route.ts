@@ -17,21 +17,21 @@ export const POST = async (request: Request) => {
         const age = data.get("age")
         const email = data.get("email")
         const password = data.get("password")
-        const profile = data.get("profile") as File
+        // const profile = data.get("profile") as File
 
-        if (!profile) {
-            return NextResponse.json({ error: 'No file upload' })
-        }
-        console.log(profile)
-        const bytes = await profile.arrayBuffer()
-        const buffer = Buffer.from(bytes)
+        // if (!profile) {
+        //     return NextResponse.json({ error: 'No file upload' })
+        // }
+        // console.log(profile)
+        // const bytes = await profile.arrayBuffer()
+        // const buffer = Buffer.from(bytes)
 
-        // unique filename
-        const filename = Date.now() + '-' + profile.name
-        const filepath = path.join(process.cwd(), 'public/uploads', filename)
-        fs.writeFileSync(filepath, buffer)
+        // // unique filename
+        // const filename = Date.now() + '-' + profile.name
+        // const filepath = path.join(process.cwd(), 'public/uploads', filename)
+        // fs.writeFileSync(filepath, buffer)
 
-        const imageurl = `/uploads/${filename}`
+        // const imageurl = `/uploads/${filename}`
         const isExist = await UserModel.find({ email: email })
         console.log(isExist)
         if (isExist.length > 0) {
@@ -42,7 +42,7 @@ export const POST = async (request: Request) => {
                 error: true
             })
         }
-        const result = await UserModel.create({ name, age, email, password, profile: imageurl })
+        const result = await UserModel.create({ name, age, email, password })
         if (result) {
             return NextResponse.json({
                 success: true,
