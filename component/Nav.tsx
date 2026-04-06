@@ -22,7 +22,7 @@ const Nav = () => {
   }
   return (
     <>
-      <div className=" p-2 d-flex gap-3 sticky-top bg-secondary ps-5 pe-5">
+      <div className=" p-2 d-flex gap-3 sticky-top bg-secondary ps-5 pe-5 w-100">
 
 
         {
