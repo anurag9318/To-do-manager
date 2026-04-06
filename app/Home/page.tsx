@@ -1,11 +1,9 @@
 import React from 'react'
-
+import Home from '@/component/Home'
 const page = () => {
   return (
     <div>
-      <h1 className='text-light'> It is under processing. please go on the login page
-        
-      </h1>
+      <Home></Home>
     </div>
   )
 }

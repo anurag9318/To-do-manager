@@ -21,10 +21,10 @@ const SignUp = () => {
     })
     const handleRegister = async (data: any) => {
         try {
-            if (data.profile.length === 0) {
-                alert("Please upload the file")
-                return;
-            }
+            // if (data.profile.length === 0) {
+            //     alert("Please upload the file")
+            //     return;
+            // }
             console.log(data)
             let formdata = new FormData()
             formdata.append("name", data.name)
