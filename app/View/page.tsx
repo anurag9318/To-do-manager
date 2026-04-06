@@ -1,18 +1,16 @@
 'use client'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 
 const page = () => {
+    const nav= useRouter()
+
     const [records, setRecords] = useState([])
-
-
     useEffect(() => {
         fetchData()
     }, [])
-
-
-
     const fetchData = async () => {
         const result = await axios.get(`/api/task`)
         if (result) {
@@ -43,8 +41,11 @@ const page = () => {
             }
         }
         )
+    }
 
-
+    const handleUpdate= (item:any)=>{
+        localStorage.setItem("Item", JSON.stringify(item))
+        nav.push(`/Update?id=${item._id}`)
     }
     return (
         <>
@@ -79,7 +80,7 @@ const page = () => {
                                                 <td>{item.des}</td>
                                                 <td>
                                                     <button className='btn btn-danger border rounded me-3' onClick={() => handleDelete(item._id)}>Del</button>
-                                                    <button className='btn btn-warning border rounded me-3'>Edit</button>
+                                                    <button className='btn btn-warning border rounded me-3' onClick={()=>handleUpdate(item)}>Edit</button>
                                                 </td>
                                             </tr>
                                         )

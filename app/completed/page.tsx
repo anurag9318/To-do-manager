@@ -2,6 +2,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
     const [records, setRecords] = useState([])
@@ -39,9 +40,14 @@ const page = () => {
             }
         }
         )
-
-
     }
+
+    const nav = useRouter()
+    const handleUpdate = (item: any) => {
+        localStorage.setItem("Item", JSON.stringify(item))
+        nav.push(`/Update?id=${item._id}`)
+    }
+   
     return (
         <>
             <div className="row mt-5">
@@ -60,34 +66,34 @@ const page = () => {
                             </tr>
                         </thead>
                         <tbody className='table-dark'>
-                            {  
-                                records?.length>0 ?
-                                Array?.isArray(records) && records?.map((item: any, index) => {
-                                    if (item.status == "completed") {
-                                        return (
+                            {
+                                records?.length > 0 ?
+                                    Array?.isArray(records) && records?.map((item: any, index) => {
+                                        if ((item.status == "completed")) {
+                                            return (
 
-                                            <tr key={index + 1}>
-                                                <td>{index + 1}</td>
-                                                <td>{item.name}</td>
-                                                <td style={{ color: colorcode.find(c => c.value === item.status)?.color }}>
-                                                    {item.status}
-                                                </td>
-                                                <td>{item.priority}</td>
-                                                <td>{item.due}</td>
-                                                <td>{item.des}</td>
-                                                <td>
-                                                    <button className='btn btn-danger border rounded me-3' onClick={() => handleDelete(item._id)}>Del</button>
-                                                    <button className='btn btn-warning border rounded me-3'>Edit</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    }
-                                }) :
-                                            <tr>
-                                                <td colSpan={7} className='text-center'>
-                                                <h2>No Task Available</h2>
-                                                </td>
-                                            </tr>
+                                                <tr key={index + 1}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{item.name}</td>
+                                                    <td style={{ color: colorcode.find(c => c.value === item.status)?.color }}>
+                                                        {item.status}
+                                                    </td>
+                                                    <td>{item.priority}</td>
+                                                    <td>{item.due}</td>
+                                                    <td>{item.des}</td>
+                                                    <td>
+                                                        <button className='btn btn-danger border rounded me-3' onClick={() => handleDelete(item._id)}>Del</button>
+                                                        <button className='btn btn-warning border rounded me-3' onClick={() => handleUpdate(item)}>Edit</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        } 
+                                    }) :
+                                    <tr>
+                                        <td colSpan={7} className='text-center'>
+                                            <h2>No Task Available</h2>
+                                        </td>
+                                    </tr>
                             }
                         </tbody>
                     </table>

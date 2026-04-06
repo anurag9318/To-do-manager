@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
     const schema = yup.object().shape({
@@ -121,8 +122,11 @@ const page = () => {
 
             }
         })
-
-
+    }
+    const nav= useRouter()
+    const handleUpdate= (item:any)=>{
+        localStorage.setItem("Item", JSON.stringify(item))
+        nav.push(`/Update?id=${item._id}`)
     }
     return (
         <div className='bg-dark vh-100 w-100 body-color'>
@@ -191,7 +195,7 @@ const page = () => {
                                                         <td>{item.des}</td>
                                                         <td>
                                                             <button className='btn btn-danger me-3' onClick={() => handleDelete(item._id)}>Del</button>
-                                                            <button className='btn btn-warning me-3'>Edit</button>
+                                                            <button className='btn btn-warning me-3' onClick={()=>handleUpdate(item)}>Edit</button>
                                                         </td>
                                                     </tr>
                                                 )

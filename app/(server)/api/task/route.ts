@@ -11,7 +11,7 @@ export const POST = async (request: Request) => {
         const { name, des, due, priority, status, id } = await request.json()
         // create new user in mongoDB
         console.log(id)
-        const newTask = await TaskModel.create({ name, des, due, priority, status, id});
+        const newTask = await TaskModel.create({ name, des, due, priority, status, id });
         return NextResponse.json({
             success: true,
             status: 201,
@@ -34,12 +34,12 @@ export const GET = async (request: Request) => {
     // const { searchParams } = new URL(request.url);
     // const uid = searchParams.get("uid")
     // console.log(uid ,"%%%%%%%%%%%%")
-    const cookieStore= cookies()
-    const uid=  (await cookieStore).get("ID")?.value
+    const cookieStore = cookies()
+    const uid = (await cookieStore).get("ID")?.value
     console.log(uid)
     try {
         await dbconnect()
-        const getTask = await TaskModel.find({id:uid}).sort({ due: -1 });
+        const getTask = await TaskModel.find({ id: uid }).sort({ due: -1 });
         if (getTask.length > 0) {
             return NextResponse.json({
                 success: true,
@@ -74,24 +74,65 @@ export const DELETE = async (request: Request) => {
         await dbconnect()
         const { searchParams } = new URL(request.url)
         const id = searchParams.get("id")
-        const deleteTask= await TaskModel.deleteOne({_id:id})
+        const deleteTask = await TaskModel.deleteOne({ _id: id })
         return NextResponse.json({
-            success:true,
-            code:200,
-            message:"Task Deleted successfully ",
-            error:false,
-            task:deleteTask,
-            title:"Deleted",
-            icon:"success"
+            success: true,
+            code: 200,
+            message: "Task Deleted successfully ",
+            error: false,
+            task: deleteTask,
+            title: "Deleted",
+            icon: "success"
         })
     } catch (error) {
-         return NextResponse.json({
-            success:false,
-            code:500,
-            message:"something went wrong ",
-            error:error,
-            title:"failed",
-            icon:"error"
+        return NextResponse.json({
+            success: false,
+            code: 500,
+            message: "something went wrong ",
+            error: error,
+            title: "failed",
+            icon: "error"
+        })
+    }
+}
+
+export const PUT = async (request: Request) => {
+
+    try {
+        await dbconnect()
+        const { searchParams } = new URL(request.url)
+        const taskid = searchParams.get("id")
+        const { name, des, due, priority, status,id } = await request.json()
+        const isExist = await TaskModel.findOne({ _id: taskid })
+        if (isExist) {
+            const result = await TaskModel.updateOne({ _id: taskid }, { $set: { name, des, due, priority, status,id } })
+            if (result) {
+                return NextResponse.json({
+                    success: true,
+                    code: 200,
+                    message: "Updated successfully",
+                    error: false,
+                    title: "updated",
+                    icon: "success"
+                })
+            }
+        }
+        return NextResponse.json({
+            success: false,
+            code: 200,
+            message: "NO task available",
+            error: true,
+            title: "failed",
+            icon: "error"
+        })
+    } catch (error) {
+        return NextResponse.json({
+            success: false,
+            code: 500,
+            message: "something went wrong ",
+            error: error,
+            title: "failed",
+            icon: "error"
         })
     }
 }
