@@ -7,6 +7,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+export const dynamic= 'force-dynamic'
 
 
 
