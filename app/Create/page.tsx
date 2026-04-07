@@ -130,7 +130,7 @@ const page = () => {
     }
     return (
         <div className='bg-dark vh-100 w-100 body-color'>
-            <div className="row p-5">
+            <div className="row p-5 m-0">
                 <div className="col-sm-5 ">
                     <div className='border rounded transparent shadow p-3 forms'>
                         <h1 className='text-light text-center'>Create Task</h1>
@@ -164,10 +164,11 @@ const page = () => {
                         </form>
                     </div>
                 </div>
-                <div className="col-sm-7">
+                <div className="col-sm-7 mt-4 ">
                     <button className='btn btn-warning mb-3' onClick={showData}>{databtn ? "show Task" : "hide Task"}</button>
                     {
                         databtn ? "" :
+                        <div className='table-responsive'>
                             <table className='table '>
                                 <thead className='table-dark'>
                                     <tr>
@@ -194,7 +195,7 @@ const page = () => {
                                                         <td>{item.due}</td>
                                                         <td>{item.des}</td>
                                                         <td>
-                                                            <button className='btn btn-danger me-3' onClick={() => handleDelete(item._id)}>Del</button>
+                                                            <button className='btn btn-danger me-3 mb-2' onClick={() => handleDelete(item._id)}>Del</button>
                                                             <button className='btn btn-warning me-3' onClick={()=>handleUpdate(item)}>Edit</button>
                                                         </td>
                                                     </tr>
@@ -208,6 +209,7 @@ const page = () => {
                                     }
                                 </tbody>
                             </table>
+                        </div>
                     }
                 </div>
             </div>

@@ -50,9 +50,9 @@ const page = () => {
    
     return (
         <>
-            <div className="row mt-5">
+            <div className="row mt-5 m-0">
                 <div className="col-sm-1"></div>
-                <div className="col-sm-10">
+                <div className="col-sm-10 table-responsive">
                     <table className='table bg-body-tertiary'>
                         <thead className='table-dark'>
                             <tr >
@@ -82,8 +82,8 @@ const page = () => {
                                                     <td>{item.due}</td>
                                                     <td>{item.des}</td>
                                                     <td>
-                                                        <button className='btn btn-danger border rounded me-3' onClick={() => handleDelete(item._id)}>Del</button>
-                                                        <button className='btn btn-warning border rounded me-3' onClick={() => handleUpdate(item)}>Edit</button>
+                                                        <button className='btn btn-danger  rounded me-3 mb-2' onClick={() => handleDelete(item._id)}>Del</button>
+                                                        <button className='btn btn-warning  rounded me-3' onClick={() => handleUpdate(item)}>Edit</button>
                                                     </td>
                                                 </tr>
                                             )

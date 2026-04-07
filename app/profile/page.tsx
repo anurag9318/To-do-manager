@@ -23,7 +23,7 @@ const profile = () => {
 
   return (
     <>
-      <div className="row ps-5 pe-5 mt-5 bg-dark text-light">
+      <div className="row ps-5 pe-5 m-0 mt-5 bg-dark text-light">
         <div className="col-sm-4 ">
           <div className='p-5 '>
             <img src={`${user?.profile }`}  width={250} height={250} className=' profile-img'></img>
